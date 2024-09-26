@@ -1,12 +1,9 @@
-import codecs
-from bs4 import BeautifulSoup
-import urllib.request
-from konlpy.tag import Twitter
-import os, re, json, random
+from konlpy.tag import Okt
+import os, json, random
 
 dict_file = "chatbot-data.json"
 dic = {}
-twitter = Twitter()
+twitter = Okt()
 
 
 def register_dic(words):
@@ -54,18 +51,18 @@ def make_sentence(head):
         w1, w2 = w2, w3
     ret = "".join(ret)
     # 띄어쓰기
-    params = urllib.parse.urlencode({
-        "_callback": "",
-        "q": ret
-    })
-    # 네이버 맞춤법 검사기를 사용합니다.
-    data = urllib.request.urlopen("https://m.search.naver.com/p/csearch/dcontent/spellchecker.nhn?" + params)
-    data = data.read().decode("utf-8")[1:-2]
-    data = json.loads(data)
-    data = data["message"]["result"]["html"]
-    data = soup = BeautifulSoup(data, "html.parser").getText()
-    # 리턴
-    return data
+    # params = urllib.parse.urlencode({
+    #     "_callback": "",
+    #     "q": ret
+    # })
+    # # 네이버 맞춤법 검사기를 사용합니다.
+    # data = urllib.request.urlopen("https://m.search.naver.com/p/csearch/dcontent/spellchecker.nhn?" + params)
+    # data = data.read().decode("utf-8")[1:-2]
+    # data = json.loads(data)
+    # data = data["message"]["result"]["html"]
+    # data = soup = BeautifulSoup(data, "html.parser").getText()
+    # # 리턴
+    return ret
 
 def word_choice(sel):
     keys = sel.keys()
