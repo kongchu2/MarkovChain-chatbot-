@@ -1,4 +1,5 @@
 from konlpy.tag import Okt
+from tqdm import tqdm
 import os, json, random
 
 dict_file = "chatbot-data.json"
@@ -20,8 +21,6 @@ def register_dic(words):
         if word == "." or word == "?":
             tmp = ["@"]
             continue
-    # 딕셔너리가 변경될 때마다 저장하기
-    json.dump(dic, open(dict_file,"w", encoding="utf-8"))
 
 
 def set_word3(dic, s3):
@@ -86,6 +85,7 @@ if os.path.exists(dict_file):
 
 if __name__ == "__main__":
     lines = open('./converted.txt', 'r', encoding="utf-8").readlines()
-    for line in lines:
+    for line in tqdm(lines):
         a = make_reply(line)
+    json.dump(dic, open(dict_file,"w", encoding="utf-8"))
     print('******** chatbot-data CREATED SUCCESS ********')
